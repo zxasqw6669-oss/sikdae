@@ -4,15 +4,38 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>식대비 정산</title>
+<link rel="preconnect" href="https://script.google.com">
+<link rel="preconnect" href="https://script.googleusercontent.com">
 <style>
   html, body { margin: 0; height: 100%; background: #fff; }
   iframe { border: 0; width: 100%; height: 100%; display: block; }
+  #loading {
+    position: fixed; inset: 0; display: flex; flex-direction: column;
+    align-items: center; justify-content: center; gap: 14px;
+    background: #fff1e6; font-family: -apple-system, "Malgun Gothic", sans-serif;
+    transition: opacity .3s;
+  }
+  #loading.hide { opacity: 0; pointer-events: none; }
+  .bowl { font-size: 64px; animation: bob 1s ease-in-out infinite; }
+  @keyframes bob { 50% { transform: translateY(-10px); } }
+  .msg { color: #6e3ca0; font-weight: 700; font-size: 18px; }
+  .sub { color: #a08c8c; font-size: 14px; }
 </style>
 </head>
 <body>
 <!-- credentialless: 구글 로그인 정보 없이 열어서 "현재 파일을 열 수 없습니다" 오류를 피함 -->
-<iframe credentialless
+<iframe id="app" credentialless
   src="https://script.google.com/macros/s/AKfycbwQwY8t7QfA44RFhQUiLzf0MHe6C0Bp1yfmwg4OIaXa-1u6tY_2_49qcleuCNsd_uSSrQ/exec"
   allow="camera; clipboard-write"></iframe>
+<div id="loading">
+  <div class="bowl">🍚</div>
+  <div class="msg">밥 푸는 중…</div>
+  <div class="sub">식대비 정산을 여는 중이에요</div>
+</div>
+<script>
+  // 앱 화면이 실제로 그려질 시간을 조금 더 기다렸다가 가림막 치우기
+  document.getElementById('app').addEventListener('load', () =>
+    setTimeout(() => document.getElementById('loading').classList.add('hide'), 1200));
+</script>
 </body>
 </html>
